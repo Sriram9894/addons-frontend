@@ -15,6 +15,22 @@ const supportedLangs = langs.concat(Object.keys(langMap));
 const rtlLangs = config.get('rtlLangs');
 
 
+// Get the main locale for a locale like "es-AR";
+// see: https://github.com/mozilla/addons/issues/528.
+export function getRootLocale(locale) {
+  if (!locale) {
+    return null;
+  }
+
+  const localeSplit = locale.split('-');
+
+  if (localeSplit.length) {
+    return localeSplit[0];
+  }
+
+  return locale;
+}
+
 export function localeToLang(locale?: any, log_?: typeof log = log) {
   let lang;
   if (locale && locale.split) {
